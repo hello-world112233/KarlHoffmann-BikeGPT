@@ -1,0 +1,12 @@
+failure_types:
+  ankle_drift: 脚踝漂移或落到踏板/车架附近错误位置
+  knee_mislocalization: 膝盖定位错误
+  left_right_swap: 左右腿或左右关键点混淆
+  frame_occlusion: 车架、车身或对侧腿遮挡
+  motion_blur: 高速运动造成模糊
+  low_resolution: 远距离或低分辨率导致关键点不稳定
+  multi_person_confusion: 多人场景中选错运动员
+  truncation: 身体或车体出画
+  lighting: 光照、反光或阴影影响识别
+  other: 其他
+

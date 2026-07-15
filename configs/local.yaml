@@ -1,0 +1,21 @@
+project:
+  name: bike-ai-platform
+  environment: local
+
+paths:
+  data_root: data
+  raw_video_dir: data/raw_videos
+  registry_dir: data/registry
+  frames_dir: data/frames
+  inference_dir: data/inference
+  annotations_dir: data/annotations
+  review_dir: data/review
+
+video:
+  default_extract_fps: 5
+  image_ext: jpg
+
+baseline:
+  backend: sapiens2
+  device: cpu
+

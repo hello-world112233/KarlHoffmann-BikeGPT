@@ -1,0 +1,21 @@
+project:
+  name: bike-ai-platform
+  environment: autodl
+
+paths:
+  data_root: /root/autodl-tmp/bike-ai-data
+  raw_video_dir: /root/autodl-tmp/bike-ai-data/raw_videos
+  registry_dir: /root/autodl-tmp/bike-ai-data/registry
+  frames_dir: /root/autodl-tmp/bike-ai-data/frames
+  inference_dir: /root/autodl-tmp/bike-ai-data/inference
+  annotations_dir: /root/autodl-tmp/bike-ai-data/annotations
+  review_dir: /root/autodl-tmp/bike-ai-data/review
+
+video:
+  default_extract_fps: 10
+  image_ext: jpg
+
+baseline:
+  backend: sapiens2
+  device: cuda:0
+

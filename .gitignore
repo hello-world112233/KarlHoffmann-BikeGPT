@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Local data and heavy artifacts
+data/
+outputs/
+models/
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.pth
+*.pt
+*.onnx
+*.safetensors
+
+# OS / IDE
+.DS_Store
+.idea/
+
+# Secrets
+.env
+*.pem
+*.key
+
