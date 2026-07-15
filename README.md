@@ -43,6 +43,16 @@ bike-ai-platform/
 4. 失败样本不是垃圾，是模型改进和论文问题的来源。
 5. Web 页面只服务闭环，不为了展示而展示。
 
+## 系统数据模型
+
+本项目采用三层分类法：
+
+```text
+来源域 Domain -> 动作/事件 Event -> 视角与质量 View & Quality
+```
+
+说明见 [docs/system_data_model.md](docs/system_data_model.md)。
+
 ## AutoDL 建议路径
 
 ```text
