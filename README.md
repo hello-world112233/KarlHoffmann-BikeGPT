@@ -64,6 +64,7 @@ source .venv/bin/activate
 pip install -e ".[dev]"
 
 python scripts/scan_videos.py --help
+python scripts/propose_events.py --help
 python scripts/create_event_index.py --help
 python scripts/cut_clips.py --help
 python scripts/register_video.py --help
@@ -86,9 +87,18 @@ python scripts/scan_videos.py \
 比赛全程视频先建立事件索引，再切短片段：
 
 ```bash
+python scripts/propose_events.py \
+  --inventory-csv /root/autodl-tmp/bike-ai-data/registry/video_inventory/video_inventory.csv \
+  --out-csv /root/autodl-tmp/bike-ai-data/registry/event_index/auto_competition_events.csv
+```
+
+如果需要手动精修，再生成手工索引模板：
+
+```bash
 python scripts/create_event_index.py \
   --inventory-csv /root/autodl-tmp/bike-ai-data/registry/video_inventory/video_inventory.csv \
   --out-csv /root/autodl-tmp/bike-ai-data/registry/event_index/competition_events.csv
 ```
 
 说明见 [docs/event_index_workflow.md](docs/event_index_workflow.md)。
+自动粗筛说明见 [docs/auto_event_proposal.md](docs/auto_event_proposal.md)。
