@@ -1,9 +1,7 @@
 # Apps
 
-后续产品入口放在这里：
-
-- `api/`：FastAPI 服务
-- `review_app/`：教练和科研人员复盘界面
-
-当前阶段先优先完成数据、baseline、失败样本和标注闭环。
+- `rota/`：**ROTA** 单目骑行 3D 分析 SaaS（FastAPI + Web 工作台）
+  - 启动：`cd apps/rota && python app.py` → 端口 `8787`
+- `api/`：后续统一 API
+- `review_app/`：教练复盘（规划中）
 

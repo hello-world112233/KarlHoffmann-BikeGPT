@@ -1,0 +1,24 @@
+# Example multi-view camera calibration file for scripts/reconstruct_3d.py
+#
+# Replace K/R/t with your real calibration (OpenCV stereo/multi-cam).
+# Coordinate convention: X right, Y down, Z forward (OpenCV), or any consistent world frame.
+#
+# Camera names are neutral IDs. They do not mean front/side/rear.
+# The calibrated R/t values below encode each camera's real spatial position.
+# Replace every example K/R/t value with the output of real calibration.
+
+cameras:
+  - name: A
+    K: [[2000.0, 0.0, 1920.0], [0.0, 2000.0, 1080.0], [0.0, 0.0, 1.0]]
+    R: [[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]]
+    t: [0.0, 0.0, 4.0]
+
+  - name: B
+    K: [[2000.0, 0.0, 1920.0], [0.0, 2000.0, 1080.0], [0.0, 0.0, 1.0]]
+    R: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]
+    t: [0.0, 0.0, 5.0]
+
+  - name: C
+    K: [[2000.0, 0.0, 1920.0], [0.0, 2000.0, 1080.0], [0.0, 0.0, 1.0]]
+    R: [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, -1.0]]
+    t: [0.0, 0.0, 5.0]

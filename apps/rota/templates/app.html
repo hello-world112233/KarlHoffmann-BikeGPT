@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ROTA 工作台</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/rota.css?v=20260814e" />
+  <link rel="icon" href="/static/favicon.svg" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "/static/vendor/three/build/three.module.js"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="shell app-frame">
+    <aside class="sidebar">
+      <a class="side-brand" href="/">ROTA</a>
+      <div class="side-label">分析流程</div>
+      <div class="pipeline" id="pipeline"></div>
+
+      <div class="upload-box">
+        拖入单镜头骑行视频
+        <div>
+          <label for="file">上传 MP4</label>
+          <input id="file" type="file" accept="video/*" />
+        </div>
+        <div style="margin-top:10px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn" id="btnUpload" type="button">选择文件</button>
+          <button class="btn btn-solid" id="btnDemo" type="button">加载演示</button>
+        </div>
+        <p class="upload-tip">鼠标移到下方指标卡片（带 ?）上，可查看计算方式与解读说明。</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <h1 id="sessionTitle">场次</h1>
+          <p class="sub" id="sessionSub">—</p>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <button class="btn" id="btnPlay" type="button">暂停</button>
+          <button class="btn btn-solid" id="btnPrint" type="button">导出报告</button>
+        </div>
+      </div>
+
+      <div class="grid-media">
+        <section class="panel">
+          <div class="panel-h"><span>原视频 · 对照</span><span>与三维同步</span></div>
+          <div class="viewport video-viewport">
+            <video id="sourceVideo" playsinline muted loop preload="auto"></video>
+            <div class="calibration-overlay" id="calibrationOverlay" aria-label="自行车五点校正">
+              <svg id="bikeGuide" aria-hidden="true"></svg>
+              <button class="calibration-point" data-point="rear_hub" type="button"><span>后轮</span></button>
+              <button class="calibration-point" data-point="front_hub" type="button"><span>前轮</span></button>
+              <button class="calibration-point" data-point="bottom_bracket" type="button"><span>中轴</span></button>
+              <button class="calibration-point" data-point="saddle" type="button"><span>坐垫</span></button>
+              <button class="calibration-point" data-point="handlebar" type="button"><span>车把</span></button>
+            </div>
+            <div class="body-calibration-overlay" id="bodyCalibrationOverlay" aria-label="人体十二点标定">
+              <svg id="bodyGuide" aria-hidden="true"></svg>
+              <button class="body-calibration-point" data-body-point="left_shoulder" type="button"><span>左肩</span></button>
+              <button class="body-calibration-point" data-body-point="right_shoulder" type="button"><span>右肩</span></button>
+              <button class="body-calibration-point" data-body-point="left_elbow" type="button"><span>左肘</span></button>
+              <button class="body-calibration-point" data-body-point="right_elbow" type="button"><span>右肘</span></button>
+              <button class="body-calibration-point" data-body-point="left_wrist" type="button"><span>左腕</span></button>
+              <button class="body-calibration-point" data-body-point="right_wrist" type="button"><span>右腕</span></button>
+              <button class="body-calibration-point" data-body-point="left_hip" type="button"><span>左髋</span></button>
+              <button class="body-calibration-point" data-body-point="right_hip" type="button"><span>右髋</span></button>
+              <button class="body-calibration-point" data-body-point="left_knee" type="button"><span>左膝</span></button>
+              <button class="body-calibration-point" data-body-point="right_knee" type="button"><span>右膝</span></button>
+              <button class="body-calibration-point" data-body-point="left_ankle" type="button"><span>左踝</span></button>
+              <button class="body-calibration-point" data-body-point="right_ankle" type="button"><span>右踝</span></button>
+            </div>
+            <div class="calibration-tools">
+              <button class="btn btn-small" id="btnCalibrate" type="button">校正五点</button>
+              <button class="btn btn-small btn-solid" id="btnApplyCalibration" type="button" disabled>应用约束</button>
+              <button class="btn btn-small" id="btnBodyCalibrate" type="button">人体标定</button>
+              <button class="btn btn-small btn-solid" id="btnApplyBodyCalibration" type="button" disabled>应用人体</button>
+            </div>
+            <div class="viewport-hint" id="calibrationStatus">五点为自动初值，点击“校正五点”后拖动</div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-h"><span>三维骑手 · 示意人体 + 车架</span><span>拖拽旋转 · 默认侧视</span></div>
+          <div class="viewport">
+            <canvas id="stage3d"></canvas>
+            <div class="viewport-hint">自行车坐标系 · 固定骨长 · 人车接触约束</div>
+          </div>
+        </section>
+      </div>
+
+      <div class="scrub">
+        <input id="scrub" type="range" min="0" max="79" value="0" />
+        <span id="scrubVal">0 / 0</span>
+      </div>
+
+      <div class="grid-metrics">
+        <section class="panel">
+          <div class="panel-h">
+            <span>骑行指标</span>
+            <span class="panel-tip">悬停查看说明</span>
+          </div>
+          <div class="metrics" id="metricsGrid"></div>
+        </section>
+
+        <section class="panel report" id="report">
+          <div class="panel-h"><span>分析报告</span><span>ROTA</span></div>
+          <div style="padding:4px 2px 0;">
+            <h2>场次要点</h2>
+            <ul id="narrative"></ul>
+            <p class="fine" id="disclaimer"></p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script type="module" src="/static/js/app.js?v=20260820a"></script>
+</body>
+</html>

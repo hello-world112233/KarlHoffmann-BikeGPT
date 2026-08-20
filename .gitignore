@@ -10,8 +10,14 @@ venv/
 
 # Local data and heavy artifacts
 data/
+!apps/rota/data/
+!apps/rota/data/demo/
+!apps/rota/data/demo/**
+apps/rota/data/jobs/
 outputs/
 models/
+!apps/rota/static/models/
+!apps/rota/static/models/**
 *.mp4
 *.mov
 *.avi
@@ -30,3 +36,6 @@ models/
 *.pem
 *.key
 
+# ROTA runtime artifacts
+apps/rota/data/jobs/
+apps/rota/static/downloads/

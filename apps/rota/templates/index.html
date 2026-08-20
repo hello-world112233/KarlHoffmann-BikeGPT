@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ROTA — 单镜头骑行智能分析</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/rota.css" />
+  <link rel="icon" href="/static/favicon.svg" />
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="shell">
+    <nav class="nav">
+      <div class="brand"><span class="brand-mark"></span>ROTA</div>
+      <div class="nav-actions">
+        <a class="btn" href="#method">方法</a>
+        <a class="btn btn-solid" href="/app">打开工作台</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <h1 class="hero-brand">ROTA<span>.</span></h1>
+      <p>
+        单镜头骑行分析：上传视频即可得到三维骑手骨架，
+        并输出踏频、对称性、躯干前倾等教练可用指标。无需多机架设，无需实验室硬件。
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="/app">开始分析</a>
+        <a class="btn" href="/app">查看演示场次</a>
+      </div>
+      <div class="hero-meta">
+        <span>单目三维抬升</span>
+        <span>运动员锁定</span>
+        <span>动作指标</span>
+        <span>可导出报告</span>
+      </div>
+    </section>
+
+    <section id="method" style="padding: 40px clamp(20px,4vw,64px) 80px; max-width: 920px;">
+      <h2 style="font-family:var(--font-display);font-size:2rem;margin:0 0 12px;">分析流程</h2>
+      <p style="color:var(--mist);line-height:1.7;margin:0 0 18px;">
+        单摄像头骑行视频 → 2D 关键点 → 连续单目三维姿态 → 骨架动画 → 骑行指标 → 场次报告。
+      </p>
+      <ol style="color:var(--mist);line-height:1.85;padding-left:1.2rem;">
+        <li>导入手机 / 运动相机的一段视频</li>
+        <li>检测人体关键点并锁定骑手</li>
+        <li>将 2D 轨迹抬升为时间连贯的三维骨架</li>
+        <li>计算踏频、膝活动度、左右对称、躯干前倾、踝轨迹质量等</li>
+        <li>导出可供教练与干系人审阅的专业报告页</li>
+      </ol>
+    </section>
+  </div>
+</body>
+</html>
